@@ -11,8 +11,6 @@ import Navbar from "../components/Navbar";
 const Menu = () => {
   const { data, isLoading, isError, fetchData } = productStore();
 
-  console.log(data);
-
   useEffect(() => {
     fetchData();
   }, [fetchData]);
@@ -42,6 +40,7 @@ const Menu = () => {
           {data.map((product) => {
             return (
               <CardProduct
+                key={product._id}
                 name={product.name}
                 price={product.price}
                 image={product.image}

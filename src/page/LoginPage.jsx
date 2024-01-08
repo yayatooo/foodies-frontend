@@ -5,7 +5,8 @@ import loginStore from "../store/loginStore";
 import axios from "axios";
 
 const LoginPage = () => {
-  const { email, password, isLoggedIn, setField, login, logout } = loginStore();
+  const { email, password, isLoggedIn, setField, login, logout, saveUserData } =
+    loginStore();
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -23,12 +24,13 @@ const LoginPage = () => {
       });
 
       if (response.data) {
-        localStorage.setItem("token", response.data.token);
-        localStorage.setItem("userId", response.data.userId);
-        localStorage.setItem("name", response.data.name);
+        // localStorage.setItem("token", response.data.token);
+        // localStorage.setItem("userId", response.data.userId);
+        // localStorage.setItem("name", response.data.name);
 
         console.log("Login successful:", response.data);
-        await login();
+        login();
+        saveUserData(response.data);
         navigate("/");
       }
     } catch (error) {
