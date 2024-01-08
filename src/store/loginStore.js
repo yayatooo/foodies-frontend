@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 const loginStore = create((set) => ({
+  fullName: "",
   email: "", // Add email to the state
   password: "",
   isLoggedIn: false,

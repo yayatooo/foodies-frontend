@@ -18,7 +18,12 @@ const Navbar = () => {
           <a href="#">About Us</a>
           <div className="flex gap-3 items-center ml-6">
             {isLoggedIn ? (
-              <Link to={"/profile"}>{email}</Link>
+              <Link
+                to={"/profile"}
+                className="bg-black py-2 px-4 text-primary rounded-full hover:bg-gray-900"
+              >
+                {email}
+              </Link>
             ) : (
               <Link
                 to="/register"
