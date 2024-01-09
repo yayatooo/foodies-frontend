@@ -1,12 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import loginStore from "../store/loginStore";
 import axios from "axios";
 
 const LoginPage = () => {
-  const { email, password, isLoggedIn, setField, login, logout, saveUserData } =
-    loginStore();
+  const { email, password, setField, initialize } = loginStore();
   const navigate = useNavigate();
 
   const handleInputChange = (e) => {
@@ -24,23 +23,19 @@ const LoginPage = () => {
       });
 
       if (response.data) {
-        // localStorage.setItem("token", response.data.token);
-        // localStorage.setItem("userId", response.data.userId);
-        // localStorage.setItem("name", response.data.name);
+        const { token, user } = response.data;
+
+        loginStore.getState().login(token);
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
 
         console.log("Login successful:", response.data);
-        login();
-        saveUserData(response.data);
         navigate("/");
       }
     } catch (error) {
-      // Handle login failure, display an error message, etc.
       console.error("Login failed:", error.message);
     }
-  };
-
-  const handleLogout = () => {
-    logout();
   };
 
   return (

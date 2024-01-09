@@ -9,20 +9,30 @@ const loginStore = create((set) => ({
   login: () => set({ isLoggedIn: true }),
   logout: () => set({ isLoggedIn: false }),
 
-  saveUserData: (userData) => {
-    localStorage.setItem("userData", JSON.stringify(userData));
+  login: (token) => {
+    set({ isLoggedIn: true, token }); // Update the token when the user logs in
   },
 
-  // Function to retrieve user data from localStorage
-  loadUserData: () => {
-    const storedUserData = localStorage.getItem("userData");
-    return storedUserData ? JSON.parse(storedUserData) : null;
-  },
-
-  // Function to clear user data from localStorage
-  clearUserData: () => {
-    localStorage.removeItem("userData");
-  },
+  logout: () => set({ isLoggedIn: false, token: null }),
 }));
 
 export default loginStore;
+
+// import create from 'zustand';
+
+// const useAuthStore = create((set) => ({
+//   user: null,
+
+//   login: (userData) => set({ user: userData }),
+
+//   logout: () => set({ user: null }),
+
+//   initialize: () => {
+//     const storedUser = JSON.parse(localStorage.getItem('user'));
+//     if (storedUser) {
+//       set({ user: storedUser });
+//     }
+//   },
+// }));
+
+// export default useAuthStore;

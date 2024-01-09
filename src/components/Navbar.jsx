@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import loginStore from "../store/loginStore";
 
 const Navbar = () => {
-  const { isLoggedIn, email } = loginStore();
+  const { isLoggedIn, email, logout } = loginStore();
+  const handleLogout = () => {
+    logout();
+  };
 
   return (
     <nav className="w-full font-poppins bg-primary">
@@ -32,6 +35,7 @@ const Navbar = () => {
                 Sign Up
               </Link>
             )}
+            {/* <button onClick={handleLogout}>Logout</button> */}
             <Link to="/cart">
               <FaCartShopping size={"1.5em"} />
             </Link>

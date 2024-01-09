@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../components/Navbar";
-// import ProfileCard from "../components/ProfileCard";
-// import profileStore from "../store/profileStore";
+import ProfileCard from "../components/ProfileCard";
+import profileStore from "../store/profileStore";
 import { useEffect } from "react";
 
 const Profile = () => {
@@ -19,7 +19,7 @@ const Profile = () => {
       <Navbar />
       <div className="container mx-auto max-w-6xl font-poppins py-10">
         <h1 className="font-semibold text-3xl">Profile Page</h1>
-        {/* <ProfileCard fullName={data.fullName} email={data.email} /> */}
+        <ProfileCard fullName="Rahmat Hidayat" email="examplemail" />
         <div className="my-8">
           <div className="flex justify-between">
             <h1 className="text-xl font-semibold">Your Adreess</h1>
