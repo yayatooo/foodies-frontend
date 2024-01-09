@@ -1,25 +1,17 @@
 import React from "react";
 import Navbar from "../components/Navbar";
 import ProfileCard from "../components/ProfileCard";
-import profileStore from "../store/profileStore";
-import { useEffect } from "react";
+// import profileStore from "../store/profileStore";
+// import { useState, useEffect } from "react";
+// import axios from "axios";
 
 const Profile = () => {
-  // const { token } = authStore(); // Assuming you have a token in your authentication store
-
-  // useEffect(() => {
-  //   // Fetch data when the component mounts or when the token changes
-  //   profileStore.getState().fetchData();
-  // }, [token]);
-
-  // console.log(token);
-
   return (
     <>
       <Navbar />
       <div className="container mx-auto max-w-6xl font-poppins py-10">
         <h1 className="font-semibold text-3xl">Profile Page</h1>
-        <ProfileCard fullName="Rahmat Hidayat" email="examplemail" />
+        <ProfileCard />
         <div className="my-8">
           <div className="flex justify-between">
             <h1 className="text-xl font-semibold">Your Adreess</h1>

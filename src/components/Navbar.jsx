@@ -2,12 +2,19 @@ import React from "react";
 import { FaCartShopping } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import loginStore from "../store/loginStore";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useEffect } from "react";
 
 const Navbar = () => {
-  const { isLoggedIn, email, logout } = loginStore();
-  const handleLogout = () => {
-    logout();
-  };
+  const { user, initialize } = loginStore();
+
+  useEffect(() => {
+    // Initialize auth store based on stored user data
+    initialize();
+  }, [initialize]);
+
+  // console.log(user);
 
   return (
     <nav className="w-full font-poppins bg-primary">
@@ -20,13 +27,15 @@ const Navbar = () => {
           <a href="#">Serivice</a>
           <a href="#">About Us</a>
           <div className="flex gap-3 items-center ml-6">
-            {isLoggedIn ? (
-              <Link
-                to={"/profile"}
-                className="bg-black py-2 px-4 text-primary rounded-full hover:bg-gray-900"
-              >
-                {email}
-              </Link>
+            {user ? (
+              <>
+                <Link
+                  to={"/profile"}
+                  className="bg-black py-2 px-4 text-primary rounded-full hover:bg-gray-900"
+                >
+                  profile
+                </Link>
+              </>
             ) : (
               <Link
                 to="/register"

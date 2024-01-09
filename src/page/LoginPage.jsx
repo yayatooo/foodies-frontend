@@ -1,17 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import loginStore from "../store/loginStore";
 import axios from "axios";
 
 const LoginPage = () => {
-  const { email, password, setField, initialize } = loginStore();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setField(name, value);
-  };
+  const { login } = loginStore();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,8 +23,10 @@ const LoginPage = () => {
       if (response.data) {
         const { token, user } = response.data;
 
-        loginStore.getState().login(token);
+        // Call the login function from useAuthStore
+        login({ token, user });
 
+        // Store the token and user in localStorage
         localStorage.setItem("token", token);
         localStorage.setItem("user", JSON.stringify(user));
 
@@ -36,6 +36,11 @@ const LoginPage = () => {
     } catch (error) {
       console.error("Login failed:", error.message);
     }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setField(name, value);
   };
 
   return (
@@ -65,7 +70,7 @@ const LoginPage = () => {
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 "
                   placeholder="example@mail.com"
                   value={email}
-                  onChange={handleInputChange}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               <div>
@@ -81,7 +86,7 @@ const LoginPage = () => {
                   id="password"
                   placeholder="••••••••"
                   value={password}
-                  onChange={handleInputChange}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                 />
               </div>
