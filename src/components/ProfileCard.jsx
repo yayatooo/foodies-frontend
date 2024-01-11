@@ -40,7 +40,7 @@ const ProfileCard = () => {
         <div className="flex flex-col justify-center">
           {user ? (
             <>
-              {/* <h2 className="font-semibold">{user.fullName}</h2> */}
+              <h2 className="font-semibold">{user.fullName}</h2>
               <h3 className="font-extralight text-gray-300">{user.email}</h3>
             </>
           ) : (
