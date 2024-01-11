@@ -7,7 +7,7 @@ const ProfileCard = () => {
   const { user, logout } = loginStore();
   const navigate = useNavigate();
 
-  console.log(user.fullName);
+  // console.log(user.fullName);
 
   const handleLogout = async () => {
     try {
@@ -38,9 +38,9 @@ const ProfileCard = () => {
       <div className="flex gap-x-4">
         <img src="./avatar.jpg" alt="profile" className="rounded-full w-16" />
         <div className="flex flex-col justify-center">
-          {user && user.fullName ? (
+          {user ? (
             <>
-              <h2 className="font-semibold">{user.fullName}</h2>
+              {/* <h2 className="font-semibold">{user.fullName}</h2> */}
               <h3 className="font-extralight text-gray-300">{user.email}</h3>
             </>
           ) : (
