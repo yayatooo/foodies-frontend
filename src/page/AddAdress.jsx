@@ -34,7 +34,7 @@ const AddAdress = () => {
 
   const handleChange = (e, key) => {
     const { name, value } = e.target;
-    console.log(`Updating ${name} to: ${value}`);
+    // console.log(`Updating ${name} to: ${value}`);
     setNewAddress((prev) => ({ ...prev, ...{ [key]: value } }));
     console.log(name);
   };
@@ -43,6 +43,8 @@ const AddAdress = () => {
     e.preventDefault();
     handleAddAddress();
   };
+
+  console.log(addresses);
 
   return (
     <div>

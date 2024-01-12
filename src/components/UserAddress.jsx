@@ -5,25 +5,6 @@ import { Link } from "react-router-dom";
 // import { useNavigate } from "react-router-dom";
 
 const UserAddress = () => {
-  const { addresses, setAddresses, addAddress, removeAddress } =
-    useAddressStore();
-
-  //   const navigate = useNavigate;
-
-  //   const getAdressUser = async () => {
-  //     try {
-  //       const response = await axios.get("http://localhost:3000/adress"); // Replace with the correct endpoint
-  //       const { data } = response;
-  //       setAddresses(data.addresses); // Assuming the response structure has an 'addresses' property
-  //     } catch (error) {
-  //       console.error("Error fetching user addresses:", error);
-  //     }
-  //   };
-
-  //   useEffect(() => {
-  //     getAdressUser();
-  //   }, []);
-
   return (
     <>
       <div className="flex justify-between">
