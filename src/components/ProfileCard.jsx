@@ -7,8 +7,6 @@ const ProfileCard = () => {
   const { user, logout } = loginStore();
   const navigate = useNavigate();
 
-  // console.log(user.fullName);
-
   const handleLogout = async () => {
     try {
       const token = localStorage.getItem("token");
