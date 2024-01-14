@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAddressStore from "../store/addressStore";
+import loginStore from "../store/loginStore";
 
 const AddAdress = () => {
   const { addresses, setAddresses } = useAddressStore();
+
   const [newAddress, setNewAddress] = useState({
     name: "",
     kelurahan: "",
@@ -20,7 +22,8 @@ const AddAdress = () => {
       // Your API call to add the new address
       const response = await axios.post(
         "http://localhost:3000/adress",
-        newAddress
+        newAddress,
+      
       );
       const { data } = response;
 
