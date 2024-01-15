@@ -3,11 +3,9 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import useAddressStore from "../store/addressStore";
-// import loginStore from "../store/loginStore";
 
 const AddAdress = () => {
   const { addresses, setAddresses } = useAddressStore();
-  // const { user } = loginStore();
   const [newAddress, setNewAddress] = useState({
     name: "",
     kelurahan: "",
