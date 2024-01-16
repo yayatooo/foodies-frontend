@@ -99,7 +99,7 @@ const UserAddress = () => {
             <div>
               <h1>Nama Penerima: {data.name}</h1>
               <h1>Kelurahan: {data.kelurahan}</h1>
-              <h1>Kecamatan: {data.kecamatan} Kota</h1>
+              <h1>Kecamatan: {data.kecamatan}</h1>
               <h1>Kabupaten: {data.kabupaten}</h1>
               <h1>Provinsi: {data.provinsi}</h1>
             </div>
