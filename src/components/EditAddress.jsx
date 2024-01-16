@@ -3,17 +3,12 @@ import React, { useState, useEffect } from "react";
 const EditAddressModal = ({
   isOpen,
   onClose,
-  address,
-  selectedAddress,
   onUpdateAddress,
   initialAddress,
 }) => {
   const [editedAddress, setEditedAddress] = useState({ ...initialAddress });
 
-  useEffect(() => {
-    // Update the form fields if the initialAddress prop changes
-    setEditedAddress({ ...initialAddress });
-  }, [initialAddress]);
+  console.log(initialAddress);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -55,7 +50,12 @@ const EditAddressModal = ({
                   <input
                     type="text"
                     value={editedAddress.name}
-                    onChange={handleInputChange}
+                    onChange={(e) =>
+                      setEditedAddress({
+                        ...editedAddress,
+                        name: e.target.value,
+                      })
+                    }
                     className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full"
                   />
                 </div>
@@ -66,7 +66,12 @@ const EditAddressModal = ({
                   <input
                     type="text"
                     value={editedAddress.kelurahan}
-                    onChange={handleInputChange}
+                    onChange={(e) =>
+                      setEditedAddress({
+                        ...editedAddress,
+                        kelurahan: e.target.value,
+                      })
+                    }
                     className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full"
                   />
                 </div>
@@ -77,7 +82,12 @@ const EditAddressModal = ({
                   <input
                     type="text"
                     value={editedAddress.kecamatan}
-                    onChange={handleInputChange}
+                    onChange={(e) =>
+                      setEditedAddress({
+                        ...editedAddress,
+                        kecamatan: e.target.value,
+                      })
+                    }
                     className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full"
                   />
                 </div>
@@ -88,7 +98,12 @@ const EditAddressModal = ({
                   <input
                     type="text"
                     value={editedAddress.kabupaten}
-                    onChange={handleInputChange}
+                    onChange={(e) =>
+                      setEditedAddress({
+                        ...editedAddress,
+                        kabupaten: e.target.value,
+                      })
+                    }
                     className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full"
                   />
                 </div>
@@ -99,7 +114,12 @@ const EditAddressModal = ({
                   <input
                     type="text"
                     value={editedAddress.provinsi}
-                    onChange={handleInputChange}
+                    onChange={(e) =>
+                      setEditedAddress({
+                        ...editedAddress,
+                        provinsi: e.target.value,
+                      })
+                    }
                     className="bg-gray-100 border border-gray-200 rounded py-1 px-3 block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full"
                   />
                 </div>

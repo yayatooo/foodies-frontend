@@ -72,7 +72,7 @@ const UserAddress = () => {
     }
   };
 
-  console.log(selectedAddress);
+  // console.log(selectedAddress);
 
   // };
 
@@ -119,12 +119,14 @@ const UserAddress = () => {
       ) : (
         <p>No addresses available.</p>
       )}
-      <EditAddressModal
-        isOpen={editModalOpen}
-        onClose={closeEditModal}
-        address={selectedAddress}
-        onUpdateAddress={updateAddress}
-      />
+      {editModalOpen && selectedAddress && (
+        <EditAddressModal
+          isOpen={editModalOpen}
+          onClose={() => setEditModalOpen(false)}
+          onUpdateAddress={updateAddress}
+          initialAddress={selectedAddress}
+        />
+      )}
     </>
   );
 };
