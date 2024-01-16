@@ -2,12 +2,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import useAddressStore from "../store/addressStore";
+import EditAddressModal from "./EditAddress";
 import loginStore from "../store/loginStore";
 // import { useNavigate } from "react-router-dom";
 
 const UserAddress = () => {
   const { user } = loginStore();
-  const [addresses, setAddresses] = useState([]);
+  const { addresses, setAddresses } = useAddressStore();
+  // const [addresses, setAddresses] = useState([]);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+  const [selectedAddress, setSelectedAddress] = useState(null);
 
   useEffect(() => {
     const fetchAddresses = async () => {
@@ -30,7 +34,53 @@ const UserAddress = () => {
     }
   }, [user]);
 
-  console.log(addresses);
+  // console.log(addresses);
+
+  const openEditModal = async (addressId) => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/adress/${addressId}`
+      );
+      setSelectedAddress(response.data.adress); // Assuming the response has the address data
+      setEditModalOpen(true);
+    } catch (error) {
+      console.error("Error fetching address by ID:", error.message);
+    }
+  };
+
+  const updateAddress = async (updatedAddress) => {
+    try {
+      // Send a PATCH request to update the address on the server
+      await axios.patch(
+        `http://localhost:3000/adress/${updatedAddress._id}`,
+        updatedAddress
+      );
+
+      // Update the local state with the updated address
+      setAddresses((prevAddresses) =>
+        prevAddresses.map((address) =>
+          address._id === updatedAddress._id
+            ? { ...address, ...updatedAddress }
+            : address
+        )
+      );
+
+      // Close the modal after updating
+      setEditModalOpen(false);
+    } catch (error) {
+      console.error("Error updating address:", error.message);
+    }
+  };
+
+  console.log(selectedAddress);
+
+  // };
+
+  // Function to close the edit modal
+  const closeEditModal = () => {
+    setEditModalOpen(false);
+    setSelectedAddress(null);
+  };
 
   return (
     <>
@@ -40,7 +90,7 @@ const UserAddress = () => {
           Add address
         </Link>
       </div>
-      {addresses ? (
+      {Array.isArray(addresses) ? (
         addresses.map((data) => (
           <div
             className="w-full flex justify-between shadow-lg rounded-lg mt-4 p-6 space-y-3"
@@ -54,7 +104,10 @@ const UserAddress = () => {
               <h1>Provinsi: {data.provinsi}</h1>
             </div>
             <div className="flex flex-col gap-y-4 justify-center">
-              <button className="bg-yellow-500 rounded-md px-4 py-1">
+              <button
+                className="bg-yellow-500 rounded-md px-4 py-1"
+                onClick={() => openEditModal(data._id)}
+              >
                 Edit
               </button>
               <button className="bg-red-500 rounded-md px-4 py-1">
@@ -66,6 +119,12 @@ const UserAddress = () => {
       ) : (
         <p>No addresses available.</p>
       )}
+      <EditAddressModal
+        isOpen={editModalOpen}
+        onClose={closeEditModal}
+        address={selectedAddress}
+        onUpdateAddress={updateAddress}
+      />
     </>
   );
 };
