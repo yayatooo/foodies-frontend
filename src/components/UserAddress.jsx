@@ -41,7 +41,7 @@ const UserAddress = () => {
       const response = await axios.get(
         `http://localhost:3000/adress/${addressId}`
       );
-      setSelectedAddress(response.data.adress); // Assuming the response has the address data
+      setSelectedAddress(response.data.adress);
       setEditModalOpen(true);
     } catch (error) {
       console.error("Error fetching address by ID:", error.message);
@@ -50,13 +50,10 @@ const UserAddress = () => {
 
   const updateAddress = async (updatedAddress) => {
     try {
-      // Send a PATCH request to update the address on the server
       await axios.patch(
         `http://localhost:3000/adress/${updatedAddress._id}`,
         updatedAddress
       );
-
-      // Update the local state with the updated address
       setAddresses((prevAddresses) =>
         prevAddresses.map((address) =>
           address._id === updatedAddress._id
@@ -65,18 +62,28 @@ const UserAddress = () => {
         )
       );
 
-      // Close the modal after updating
       setEditModalOpen(false);
     } catch (error) {
       console.error("Error updating address:", error.message);
     }
   };
 
-  // console.log(selectedAddress);
+  const deleteAddress = async (addressId) => {
+    try {
+      await axios.delete(`http://localhost:3000/adress/${addressId}`);
 
-  // };
+      setAddresses((prevAddresses) =>
+        prevAddresses.filter((address) => address._id !== addressId)
+      );
+    } catch (error) {
+      console.error("Error deleting address:", error.message);
+    }
+  };
 
-  // Function to close the edit modal
+  const handleDelete = (addressId) => {
+    deleteAddress(addressId);
+  };
+
   const closeEditModal = () => {
     setEditModalOpen(false);
     setSelectedAddress(null);
@@ -110,7 +117,10 @@ const UserAddress = () => {
               >
                 Edit
               </button>
-              <button className="bg-red-500 rounded-md px-4 py-1">
+              <button
+                className="bg-red-500 rounded-md px-4 py-1"
+                onClick={() => handleDelete(data._id)}
+              >
                 Delete
               </button>
             </div>
