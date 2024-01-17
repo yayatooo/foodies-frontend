@@ -1,9 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import loginStore from "../store/loginStore";
+import useCartStore from "../store/cartStore";
 
-const CardProduct = ({ name, price, image, category, _id }) => {
+const CardProduct = ({ name, price, image, category, _id, product }) => {
   const { user } = loginStore();
+
+  const addToCart = useCartStore((state) => state.addToCart);
+
+  const handleAddToCart = () => {
+    addToCart(product);
+    alert("Item added to cart!");
+  };
 
   return (
     <div
@@ -102,7 +110,7 @@ const CardProduct = ({ name, price, image, category, _id }) => {
             </Link>
           ) : (
             <Link
-              to="/cart"
+              onClick={handleAddToCart}
               className="flex items-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300"
             >
               <svg
