@@ -2,16 +2,25 @@ import React from "react";
 import { Link } from "react-router-dom";
 import loginStore from "../store/loginStore";
 import useCartStore from "../store/cartStore";
+import axios from "axios";
 
 const CardProduct = ({ name, price, image, category, _id, product }) => {
   const { user } = loginStore();
 
-  const addToCart = useCartStore((state) => state.addToCart);
+  const { addToCart } = useCartStore();
 
-  const handleAddToCart = () => {
+  const handleAddToCart = async () => {
     addToCart(product);
-    alert("Item added to cart!");
+
+    try {
+      // Make an API request to update the server-side cart
+      await axios.post("http://localhost:3000/carts", { product });
+    } catch (error) {
+      console.error("Error adding to cart:", error.message);
+    }
   };
+
+  console.log(product);
 
   return (
     <div
