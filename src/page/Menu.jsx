@@ -45,7 +45,7 @@ const Menu = () => {
                 price={product.price}
                 image={product.image}
                 category={product.category.name}
-                product={product}
+                // product={product}
               />
             );
           })}

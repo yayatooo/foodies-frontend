@@ -1,19 +1,18 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import loginStore from "../store/loginStore";
-import { useCartStore } from "../store/cartStore";
 import axios from "axios";
+import useCartStore from "../store/cartStore";
 
 const CardProduct = ({ name, price, image, category, _id, product }) => {
   const { user } = loginStore();
-
-  const { addToCart } = useCartStore();
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const handleAddToCart = () => {
-    addToCart(product, _id);
+    addToCart({ _id, name, image, category, price });
   };
 
-  console.log(product);
+  console.log(addToCart);
 
   return (
     <div
