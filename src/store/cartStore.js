@@ -4,14 +4,18 @@ import axios from "axios";
 
 const useCartStore = create((set) => ({
   cart: [],
-  addToCart: async (product) => {
-    // Update the local state
-    set((state) => ({
-      cart: [...state.cart, { ...product, quantity: 1 }],
-    }));
+  totalQuantity: 0,
 
-    // Get the token from local storage
-    const token = localStorage.getItem("token"); // Replace 'your_token_key' with your actual token key
+  addToCart: async (product) => {
+    // Use a functional update to access the previous state
+    set((state) => {
+      const newCart = [...state.cart, { ...product, quantity: 1 }];
+
+      // Update the total quantity in the state
+      return { cart: newCart, totalQuantity: newCart.length };
+    });
+
+    const token = localStorage.getItem("token");
 
     // Make a POST request to update the server
     try {
@@ -26,10 +30,6 @@ const useCartStore = create((set) => ({
         }
       );
 
-      // Axios automatically throws an error for non-2xx responses
-      // No need to check response.ok
-
-      // Handle the server response if needed
       const data = response.data;
       console.log("Server response:", data);
     } catch (error) {

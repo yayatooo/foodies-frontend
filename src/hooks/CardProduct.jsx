@@ -12,8 +12,6 @@ const CardProduct = ({ name, price, image, category, _id, product }) => {
     addToCart({ _id, name, image, category, price });
   };
 
-  console.log(addToCart);
-
   return (
     <div
       className="relative w-full max-w-xs overflow-hidden rounded-lg bg-white shadow-md"

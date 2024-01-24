@@ -5,9 +5,11 @@ import loginStore from "../store/loginStore";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
+import useCartStore from "../store/cartStore";
 
 const Navbar = () => {
   const { user, initialize } = loginStore();
+  const totalQuantity = useCartStore((state) => state.totalQuantity);
 
   useEffect(() => {
     // Initialize auth store based on stored user data
@@ -45,8 +47,11 @@ const Navbar = () => {
               </Link>
             )}
             {/* <button onClick={handleLogout}>Logout</button> */}
-            <Link to="/cart">
+            <Link to="/cart" className="flex">
               <FaCartShopping size={"1.5em"} />
+              <p className="w-6 h-6 bg-red-500 text-white rounded-full text-center">
+                {totalQuantity}
+              </p>
             </Link>
           </div>
         </div>
