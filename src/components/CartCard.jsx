@@ -1,23 +1,33 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { data } from "autoprefixer";
 
 const CartCard = () => {
   const [cartData, setCartData] = useState([]);
 
-  useEffect(() => {
-    const fetchCartData = async () => {
-      try {
-        // Assuming you have an endpoint to fetch cart data
-        const response = await axios.get("http://localhost:3000/carts");
-        const data = response.data;
-        setCartData(data); // Update the cartData state
-      } catch (error) {
-        console.error("Error fetching cart data:", error.message);
-      }
-    };
+  const fetchCartData = async () => {
+    try {
+      // Assuming you have an endpoint to fetch cart data
+      const response = await axios.get("http://localhost:3000/carts");
+      const data = response.data;
+      setCartData(data); // Update the cartData state
+    } catch (error) {
+      console.error("Error fetching cart data:", error.message);
+    }
+  };
 
+  useEffect(() => {
     fetchCartData(); // Fetch cart data when the component mounts
   }, []);
+
+  const handleDeleteItem = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3000/carts/${id}`);
+      fetchCartData();
+    } catch (error) {
+      console.error("Error deleting item:", error.message);
+    }
+  };
 
   return (
     <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,7 +43,10 @@ const CartCard = () => {
                 <>
                   <div className="flow-root">
                     <ul className="flex flex-col gap-y-4">
-                      <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
+                      <li
+                        key={cart._id}
+                        className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0"
+                      >
                         <div className="shrink-0">
                           <img
                             className="h-24 w-24 max-w-full rounded-lg object-cover"
@@ -59,6 +72,7 @@ const CartCard = () => {
 
                           <div className="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
                             <button
+                              onClick={() => handleDeleteItem(cart._id)}
                               type="button"
                               className="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900"
                             >
