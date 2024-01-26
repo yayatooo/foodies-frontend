@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import loginStore from "../store/loginStore";
 import axios from "axios";
 import useCartStore from "../store/cartStore";
+import { FormatRupiah } from "@arismun/format-rupiah";
 
 const CardProduct = ({ name, price, image, category, _id, product }) => {
   const { user } = loginStore();
@@ -81,8 +82,8 @@ const CardProduct = ({ name, price, image, category, _id, product }) => {
         </div>
         <div className="flex items-center justify-between">
           <p>
-            <span className="text-3xl font-bold text-slate-900">
-              Rp.{price}
+            <span className="text-2xl font-bold text-slate-900">
+              <FormatRupiah value={price} />
             </span>
           </p>
 

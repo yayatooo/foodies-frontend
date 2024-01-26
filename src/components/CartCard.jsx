@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
+import { FormatRupiah } from "@arismun/format-rupiah";
 import axios from "axios";
-import { data } from "autoprefixer";
+import { Link } from "react-router-dom";
 
 const CartCard = () => {
   const [cartData, setCartData] = useState([]);
 
   const fetchCartData = async () => {
     try {
-      // Assuming you have an endpoint to fetch cart data
-      const response = await axios.get("http://localhost:3000/carts");
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://localhost:3000/carts", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       const data = response.data;
       setCartData(data); // Update the cartData state
     } catch (error) {
@@ -22,12 +27,27 @@ const CartCard = () => {
 
   const handleDeleteItem = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/carts/${id}`);
+      const token = localStorage.getItem("token");
+      await axios.delete(`http://localhost:3000/carts/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       fetchCartData();
     } catch (error) {
       console.error("Error deleting item:", error.message);
     }
   };
+
+  const totalPrice = cartData.reduce((acc, cart) => {
+    const itemPrice = parseFloat(cart.price);
+
+    if (!isNaN(itemPrice)) {
+      return acc + itemPrice; // Increment total price by item price
+    } else {
+      return acc; // Skip invalid values
+    }
+  }, 0);
 
   return (
     <div className="mx-auto px-4 sm:px-6 lg:px-8">
@@ -65,7 +85,7 @@ const CartCard = () => {
 
                             <div className="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
                               <p className="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">
-                                {cart.price}
+                                <FormatRupiah value={cart.price} />
                               </p>
                             </div>
                           </div>
@@ -104,12 +124,17 @@ const CartCard = () => {
             <div className="mt-6 flex items-center justify-between">
               <p className="text-sm font-medium text-gray-900">Total</p>
               <p className="text-2xl font-semibold text-gray-900">
-                <span className="text-xs font-normal text-gray-400">USD</span>{" "}
-                408.00
+                <FormatRupiah value={totalPrice} />
               </p>
             </div>
 
-            <div className="mt-6 text-center">
+            <div className="mt-6 text-center flex gap-4">
+              <Link
+                to="/menu"
+                className="group inline-flex w-full items-center justify-center rounded-md bg-red-500 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-red-800"
+              >
+                Cancel
+              </Link>
               <button
                 type="button"
                 className="group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
