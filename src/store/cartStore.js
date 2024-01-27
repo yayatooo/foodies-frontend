@@ -5,11 +5,10 @@ import axios from "axios";
 const useCartStore = create((set) => ({
   cart: [],
   totalQuantity: 0,
-
   addToCart: async (product) => {
     // Use a functional update to access the previous state
     set((state) => {
-      const newCart = [...state.cart, { ...product, quantity: 1 }];
+      const newCart = [...state.cart, { ...product, qty: 1 }];
 
       // Update the total quantity in the state
       return { cart: newCart, totalQuantity: newCart.length };

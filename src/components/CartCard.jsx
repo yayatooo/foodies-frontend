@@ -64,7 +64,7 @@ const CartCard = () => {
                   <div className="flow-root">
                     <ul className="flex flex-col gap-y-4">
                       <li
-                        key={cart._id}
+                        key={cart.id}
                         className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0"
                       >
                         <div className="shrink-0">
@@ -133,7 +133,7 @@ const CartCard = () => {
                 to="/menu"
                 className="group inline-flex w-full items-center justify-center rounded-md bg-red-500 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-red-800"
               >
-                Cancel
+                Back
               </Link>
               <button
                 type="button"
