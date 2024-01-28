@@ -7,6 +7,7 @@ import NotFound from "./page/NotFound";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Profile from "./layout/Profile";
 import AddAdress from "./page/AddAdress";
+import Order from "./page/Order";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/menu" element={<Menu />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/addAdress" element={<AddAdress />} />
+          <Route path="/orders" element={<Order />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

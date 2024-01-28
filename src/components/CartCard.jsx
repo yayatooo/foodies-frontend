@@ -135,8 +135,8 @@ const CartCard = () => {
               >
                 Back
               </Link>
-              <button
-                type="button"
+              <Link
+                to="/orders"
                 className="group inline-flex w-full items-center justify-center rounded-md bg-gray-900 px-6 py-4 text-lg font-semibold text-white transition-all duration-200 ease-in-out focus:shadow hover:bg-gray-800"
               >
                 Checkout
@@ -154,7 +154,7 @@ const CartCard = () => {
                     d="M13 7l5 5m0 0l-5 5m5-5H6"
                   />
                 </svg>
-              </button>
+              </Link>
             </div>
           </div>
         </div>
