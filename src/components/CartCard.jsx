@@ -61,12 +61,9 @@ const CartCard = () => {
             {cartData.map((cart) => {
               return (
                 <>
-                  <div className="flow-root">
+                  <div className="flow-root" key={cart._id}>
                     <ul className="flex flex-col gap-y-4">
-                      <li
-                        key={cart.id}
-                        className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0"
-                      >
+                      <li className="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
                         <div className="shrink-0">
                           <img
                             className="h-24 w-24 max-w-full rounded-lg object-cover"
