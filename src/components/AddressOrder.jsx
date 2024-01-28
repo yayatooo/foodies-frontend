@@ -1,6 +1,11 @@
 import React from "react";
+import loginStore from "../store/loginStore";
 
 const AddressOrder = () => {
+  const { user } = loginStore();
+
+  console.log(user);
+
   return (
     <div className="bg-white rounded-lg mt-4">
       <h1 className="text-2xl font-bold px-10 py-4">Address 🏠</h1>
@@ -11,7 +16,7 @@ const AddressOrder = () => {
           className="object-cover rounded-full w-20"
         />
         <div>
-          <h1>User Name</h1>
+          {user ? <h1>{user.fullName}</h1> : <h1>Name</h1>}
           <select name="Your Address" className="w-full">
             <option value="">
               Jln P Sabang Kelurahan Kayamanya Kabupaten Poso Provinsi Sulawesi

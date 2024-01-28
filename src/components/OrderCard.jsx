@@ -2,18 +2,45 @@ import React from "react";
 import AddressOrder from "./AddressOrder";
 import CartOrder from "./CartOrder";
 import { Link } from "react-router-dom";
+import useCartStore from "../store/cartStore";
 
 const OrderCard = () => {
+  //   const [cartData, setCartData] = useState([]);
+
+  //   const fetchCartData = async () => {
+  //     try {
+  //       const token = localStorage.getItem("token");
+  //       const response = await axios.get("http://localhost:3000/carts", {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       });
+  //       const data = response.data;
+  //       setCartData(data); // Update the cartData state
+  //     } catch (error) {
+  //       console.error("Error fetching cart data:", error.message);
+  //     }
+  //   };
+
+  //   const totalPrice = cartData.reduce((acc, cart) => {
+  //     const itemPrice = parseFloat(cart.price);
+
+  //     if (!isNaN(itemPrice)) {
+  //       return acc + itemPrice; // Increment total price by item price
+  //     } else {
+  //       return acc; // Skip invalid values
+  //     }
+  //   }, 0);
+
+  //   useEffect(() => {
+  //     fetchCartData(); // Fetch cart data when the component mounts
+  //   }, []);
+
   return (
     <section className=" container max-w-6xl mx-auto">
       <h1 className="text-3xl font-bold mb-8">Order 📋</h1>
       <div className="bg-white rounded-lg">
         <h1 className="text-2xl font-bold px-10 py-4">Product 🥘</h1>
-        <div className="flex py-6 px-12 w-full border-b-2 border-gray-200 justify-between font-semibold ">
-          <img src="./menu-1.jpg" alt="cart" className="object-cover w-28" />
-          <h1>Product Name</h1>
-          <h1>Product Price</h1>
-        </div>
         <div className="flex py-6 px-12 w-full border-b-2 border-gray-200 justify-between font-semibold ">
           <img src="./menu-1.jpg" alt="cart" className="object-cover w-28" />
           <h1>Product Name</h1>
