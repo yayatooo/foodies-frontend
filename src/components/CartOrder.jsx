@@ -18,7 +18,7 @@ const CartOrder = () => {
           <h1>
             <FormatRupiah value={getTotalPrice()} />
           </h1>
-          <h1>Rp. 5.0000</h1>
+          <h1>Rp. 10.000</h1>
           <h1>Rp. 0</h1>
         </div>
       </div>

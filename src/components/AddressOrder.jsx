@@ -3,33 +3,43 @@ import loginStore from "../store/loginStore";
 import useAddressStore from "../store/addressStore";
 import axios from "axios";
 
-const AddressOrder = ({ onAddressSubmit }) => {
+const AddressOrder = () => {
   const { user } = loginStore();
   const { addresses } = useAddressStore();
-  const [selectedAddress, setSelectedAddress] = useState("");
+  const [selectedAddress, setSelectedAddress] = useState(null);
+  const [error, setError] = useState(null);
 
   const handleAddressChange = (event) => {
-    setSelectedAddress(event.target.value);
+    const addressId = event.target.value;
+    const selectedAddressObject = addresses.find(
+      (address) => address._id === addressId
+    );
+    setSelectedAddress(selectedAddressObject);
   };
+
+  console.log(selectedAddress);
 
   const handleSubmit = async () => {
     try {
+      if (!selectedAddress) {
+        console.error("No address selected");
+        return;
+      }
       const token = localStorage.getItem("token");
-      const addressId = selectedAddress; // Assuming selectedAddress is the address ID
+      const addressId = selectedAddress._id;
       const response = await axios.post(
         "http://localhost:3000/orders",
         { addressId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
           },
         }
       );
-      console.log("Address posted successfully:", response.data);
+      console.log("Address ID posted successfully:", response.data);
     } catch (error) {
-      console.error("Error during login or posting address:", error.message);
-      // Handle login or posting address error
+      console.error("Error during posting address ID:", error.message);
+      setError(error.message);
     }
   };
   return (
