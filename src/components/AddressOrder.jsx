@@ -29,7 +29,7 @@ const AddressOrder = () => {
       const addressId = selectedAddress._id;
       const response = await axios.post(
         "http://localhost:3000/orders",
-        { addressId },
+        { deliveryAddress: addressId },
         {
           headers: {
             Authorization: `Bearer ${token}`,
