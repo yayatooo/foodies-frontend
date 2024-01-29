@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 import axios from "axios";
 
 const Register = () => {
   const { fullName, email, password, setField } = useAuthStore();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -19,6 +20,9 @@ const Register = () => {
         email,
         password,
       });
+      navigate("/login");
+      alert("Akun Berhasil didaftarkan");
+
       console.log("Registration Success", response.data);
     } catch (error) {
       console.log("Registration failed", error.message);
@@ -114,8 +118,8 @@ const Register = () => {
               <p className="text-sm font-light text-gray-500 ">
                 Already have an account?{" "}
                 <Link
-                  type="submit"
                   to="/login"
+                  type="submit"
                   className="font-medium text-primary hover:underline "
                 >
                   Login here
